@@ -27,3 +27,4 @@ Route::post('/p', [PostsController::class, 'store']);
 
 Route::get('/profiles', [ProfilesController::class, 'index'])->name('profiles.index');
 Route::get('/profile/{user}', [ProfilesController::class, 'show'])->name('profiles.show');
+

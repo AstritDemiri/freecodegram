@@ -22,8 +22,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/p/create', [PostsController::class, 'create']);
-Route::post('/p', [PostsController::class, 'store']);
+/*Route::get('/p/create', [PostsController::class, 'create']);
+Route::post('/p', [PostsController::class, 'store']);*/
+
+
+Route::get('/p/create',[PostsController::class, 'create']);
+Route::post('/p',[PostsController::class, 'store']);
+Route::get('/p/{post}',[PostsController::class, 'show']);
 
 Route::get('/profiles', [ProfilesController::class, 'index'])->name('profiles.index');
 Route::get('/profile/{user}', [ProfilesController::class, 'show'])->name('profiles.show');

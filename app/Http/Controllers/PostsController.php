@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 
 class PostsController extends Controller
+
 {
     public function __construct()
     {
@@ -27,12 +28,14 @@ class PostsController extends Controller
             'image' => ['required', 'image'],
         ]);
 
-        $imagePath = $request->file('image')->store('public');
+        $imagePath = $request->file('image')->store('uploads', 'public');
+        $image = Image:: make(public_path("storage/$imagePath"))->fit(1200, 1200);
+        $image->save();
         //$imagePath = Storage::putFile('public', $request->file('image'));
         // dd($imagePath);
 
-        //$image = Image:: make(public_path("storage/$imagePath"))->fit(1200, 1200);
-        //  $image->save();
+        //$imagePath = Image:: make(public_path("storage/$imagePath"))->fit(1200, 1200);
+        //   $image->save();
 
 
         auth()->user()->posts()->create([
@@ -44,5 +47,10 @@ class PostsController extends Controller
         return redirect()->route('profiles.show', ['user' => auth()->user()->id]);
 
 
+    }
+
+    public function show(\App\post $post)
+    {
+        dd($post);
     }
 }

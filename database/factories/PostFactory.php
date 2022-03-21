@@ -15,7 +15,7 @@ class PostFactory extends Factory
     {
         return [
             'caption' => $this->faker->word(),
-            'image' => $this->faker->url(),
+            'image' => "no_image.jpg"
         ];
     }
 }

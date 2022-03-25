@@ -23,5 +23,9 @@ class ProfilesController extends Controller
             'user' => $user,
         ]);
     }
+    public function edit(\App\User $user)
+    {
+
+    }
 
 }

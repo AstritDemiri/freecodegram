@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
 
+
 class PostsController extends Controller
 
 {
@@ -20,7 +21,7 @@ class PostsController extends Controller
         return view('posts.create');
     }
 
-    public function store(Request $request)
+    public function store(\App\Models\Post $request)
     {
 
         $data = $request->validate([
@@ -49,8 +50,9 @@ class PostsController extends Controller
 
     }
 
-    public function show(\App\post $post)
+    public function show( \App\Models\Post $post)
     {
-        dd($post);
+        return view('posts.show', compact('post'));
+        //dd($post);
     }
 }

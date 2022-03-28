@@ -30,19 +30,32 @@ class ProfilesController extends Controller
 
     public function edit(User $user)
     {
+        $this->authorize('update', $user->profile);
         return view('profiles.edit', compact('user'));
     }
 
-   public function update(Request $request)
+    public function update(User $user)
     {
-        $data = $request->validate([
-            'title'=>'required',
-            'description'=>' required',
-            'url'=>'url',
-            'image'=>'',
+        $this->authorize('update', $user->profile);
+        $data = \request()->validate([
+            'title' => 'required',
+            'description' => ' required',
+            'url' => 'url',
+            'image' => '',
         ]);
 
-        auth()->user()->profile()->update($data);
+
+        if(\request('image'))
+        {
+            $imagePath = \request()->file('image')->store('profile', 'public');
+            $image = Image:: make(public_path("storage/$imagePath"))->fit(1000, 1000);
+            $image->save();
+        }
+
+        auth()->user()->profile()->update(array_merge(
+            $data,
+        ['image'=>$imagePath]));
+
 
         return redirect()->route('profiles.show', auth()->user()->id);
     }

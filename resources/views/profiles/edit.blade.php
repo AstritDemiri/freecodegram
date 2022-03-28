@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <form action="/profile/{{$user->id}}" enctype="multipart/form-data" method="post">
+        <form method="POST" action="{{ route('profiles.update', $user->profile->id) }}" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <div class="row">
@@ -15,7 +15,7 @@
                         <input id="title"
                                type="text"
                                class="form-control @error('title') is-invalid @enderror"
-                               name="caption"
+                               name="title"
                                value="{{ old('title') ?? $user->profile->title }}"
                                autocomplete="title">
 
@@ -32,8 +32,8 @@
                         <div class="col-md-6">
                             <input id="description"
                                    type="text"
-                                   class="form-control @error('title') is-invalid @enderror"
-                                   name="caption"
+                                   class="form-control @error('description') is-invalid @enderror"
+                                   name="description"
                                    value="{{ old('description')?? $user->profile->description }}"
                                    autocomplete="description">
 
@@ -51,8 +51,8 @@
                                 <input id="url"
                                        type="text"
                                        class="form-control @error('url') is-invalid @enderror"
-                                       name="caption"
-                                       value="{{ old('url')?? $user->profile->url }}"
+                                       name="url"
+                                       value="{{ old('url') ?? $user->profile->url }}"
                                        autocomplete="description">
 
                                 @error('url')

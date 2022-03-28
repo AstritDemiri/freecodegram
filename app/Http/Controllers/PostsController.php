@@ -21,7 +21,7 @@ class PostsController extends Controller
         return view('posts.create');
     }
 
-    public function store(\App\Models\Post $request)
+    public function store(Request $request)
     {
 
         $data = $request->validate([
@@ -50,7 +50,7 @@ class PostsController extends Controller
 
     }
 
-    public function show( \App\Models\Post $post)
+    public function show( Post $post)
     {
         return view('posts.show', compact('post'));
         //dd($post);

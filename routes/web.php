@@ -33,6 +33,6 @@ Route::get('/p/{post}',[PostsController::class, 'show']);
 Route::get('/profiles', [ProfilesController::class, 'index'])->name('profiles.index');
 Route::get('/profile/{user}', [ProfilesController::class, 'show'])->name('profiles.show');
 Route::get('/profile/{user}/edit', [ProfilesController::class, 'edit'])->name('profiles.edit');
-//Route::patch('/profile/{user}', [ProfilesController::class, 'update'])->name('profiles.update');
-Route::patch('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'update'])->name('profile.update');
+Route::patch('/profile/{user}', [ProfilesController::class, 'update'])->name('profiles.update');
+
 

@@ -4,9 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-3 p-5">
-                <img
-                    src="https://yt3.ggpht.com/ytc/AKedOLRyPFojwY3CXV5ks5TwPrt2VifQn-nYNfkgLvVPkw=s88-c-k-c0x00ffffff-no-rj"
-                    class="rounded-circle">
+                <img src="/storage/{{{$user->profile->image}}}" class="rounded-circle w-100">
             </div>
             <div class="col-9 pt-5">
                 <div class="d-flex justify-content-between align-items-baseline">

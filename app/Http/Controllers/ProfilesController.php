@@ -52,9 +52,10 @@ class ProfilesController extends Controller
             $image->save();
         }
 
-        auth()->user()->profile()->update(array_merge(
+        auth()->user()->profile->update(array_merge(
             $data,
-        ['image'=>$imagePath]));
+        $imageArray ??  []
+        ));
 
 
         return redirect()->route('profiles.show', auth()->user()->id);

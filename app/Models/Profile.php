@@ -15,9 +15,9 @@ class Profile extends Model
         'url',
     ];
    //protected $guarded = [];
-
-    public function user()
+    public function profileImage()
     {
+    }
         return $this->belongsTo(User::class);
     }
 }

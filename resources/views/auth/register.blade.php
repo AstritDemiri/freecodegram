@@ -39,12 +39,12 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="Username" class="col-md-4 col-form-label text-md-end">Username</label>
+                            <label for="username" class="col-md-4 col-form-label text-md-end">Username</label>
 
                             <div class="col-md-6">
-                                <input id="UsernameUsername" type="Username" class="form-control @error('Username') is-invalid @enderror" name="Username" value="{{ old('Username') }}" autocomplete="Username">
+                                <input id="UsernameUsername" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" autocomplete="username">
 
-                                @error('Username')
+                                @error('username')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

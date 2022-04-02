@@ -9,15 +9,28 @@ class Profile extends Model
 {
     use HasFactory;
 
-   protected $fillable = [
+    protected $fillable = [
         'title',
         'description',
         'url',
+        'image',
     ];
-   //protected $guarded = [];
-    public function profileImage()
+
+    public function profilImage()
     {
+        $imagePath = ($this->image) ? $this->image : 'profile/16qnrAVMjsf6qWQ33HCr3FYxvC6xBI3G24ag2vHT.jpg';
+        return '/storage/' . $imagePath;
     }
+
+    //protected $guarded = [];
+    public function followers()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
+
 }

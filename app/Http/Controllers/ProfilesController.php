@@ -12,11 +12,13 @@ use Intervention\Image\Facades\Image;
 class ProfilesController extends Controller
 {
 
-    public function index()
+    public function index(User $user)
     {
-        $users = User::all();
+        $follows =(auth()->user()) ? auth()->user()->following->contains($user->id) : false;
+//        dd($follows);
+        return view('profiles.index', ['user' => $user, 'follows' => $follows]);
+//        return view('profiles.index', compact('user', 'follows'));
 
-        return view('profiles.index', ['users' => $users]);
     }
 
     public function show($id)

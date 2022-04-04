@@ -26,9 +26,7 @@
                         @enderror
                     </div>
                     <div class=".col-8.offset-2">
-
                         <label for="description" class="col-md-4 col-form-label ">Description</label>
-
                         <div class="col-md-6">
                             <input id="description"
                                    type="text"

@@ -25,7 +25,8 @@ Auth::routes();
 
 /*Route::get('/p/create', [PostsController::class, 'create']);
 Route::post('/p', [PostsController::class, 'store']);*/
-Route::post('follow/{user}', [FollowsController::class, 'store']);
+Route::post('follow/{user}',[FollowsController::class,'store']);
+
 
 Route::get('/p/create',[PostsController::class, 'create']);
 Route::post('/p',[PostsController::class, 'store']);
@@ -33,9 +34,8 @@ Route::get('/p/{post}',[PostsController::class, 'show']);
 
 
 
-Route::get('/profiles', [ProfilesController::class, 'index'])->name('profiles.index');
-Route::get('/profile/{user}', [ProfilesController::class, 'show'])->name('profiles.show');
-Route::get('/profile/{user}/edit', [ProfilesController::class, 'edit'])->name('profiles.edit');
-Route::patch('/profile/{user}', [ProfilesController::class, 'update'])->name('profiles.update');
+Route::get('/profiles/{user}', [ProfilesController::class, 'index'])->name('profiles.index');
+Route::get('/profiles/{user}/edit', [ProfilesController::class, 'edit'])->name('profiles.edit');
+Route::patch('/profiles/{user}', [ProfilesController::class, 'update'])->name('profiles.update');
 
 

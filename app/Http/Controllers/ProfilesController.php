@@ -11,21 +11,35 @@ use Intervention\Image\Facades\Image;
 
 class ProfilesController extends Controller
 {
-
     public function index(User $user)
     {
-        $follows =(auth()->user()) ? auth()->user()->following->contains($user->id) : false;
-//        dd($follows);
-        return view('profiles.index', ['user' => $user, 'follows' => $follows]);
-//        return view('profiles.index', compact('user', 'follows'));
-
+        $follows = (auth()->user()) ? auth()->user()->following->contains($user->id) : false;
+        $postCount = Cache::remember(
+            'count.posts.' . $user->id,
+            now()->addSecond(30),
+            function () use ($user) {
+                return $user->posts->count();
+            });
+        $followersCount = Cache::remember(
+            'count.followers' . $user->id,
+            now()->addSecond(30),
+            function () use ($user) {
+                return $user->profile->followers->count();
+            });
+        $followingCount = Cache::remember(
+            'count.following' . $user->id,
+            now()->addSecond(30),
+            function () use ($user) {
+                return $user->following->count();
+            });
+        return view('profiles.index', ['user' => $user, 'follows' => $follows, 'postCount' => $postCount,
+            'followersCount' => $followersCount, 'followingCount' => $followingCount]);
     }
 
     public function show($id)
     {
         $user = User::findOrFail($id);
-
-        return view('profiles.show', [
+        return view('profiles.index', [
             'user' => $user,
         ]);
     }
@@ -45,22 +59,16 @@ class ProfilesController extends Controller
             'url' => 'url',
             'image' => '',
         ]);
-
-
-        if(\request('image'))
-        {
+        if (\request('image')) {
             $imagePath = \request()->file('image')->store('profile', 'public');
             $image = Image:: make(public_path("storage/$imagePath"))->fit(1000, 1000);
             $image->save();
-            $imageArray = ['image'=>$imagePath];
+            $imageArray = ['image' => $imagePath];
         }
-
         auth()->user()->profile->update(array_merge(
             $data,
             $imageArray ?? []
-    ));
-
-
-        return redirect()->route('profiles.show', auth()->user()->id);
+        ));
+        return redirect()->route('profiles.index', auth()->user()->id);
     }
 }

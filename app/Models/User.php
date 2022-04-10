@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Mail\NewUserWelcomeMail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Mail;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -46,16 +48,18 @@ class User extends Authenticatable
     protected static function boot()
     {
         parent::boot();
-        static::created(function  ($user){
+        static::created(function ($user) {
             $user->profile()->create([
                 'title' => $user->username,
             ]);
+
+            Mail::to($user->email)->send(new NewUserWelcomeMail());
         });
     }
 
     public function posts()
     {
-        return $this->hasMany(Post::class)->orderBy('created_at' , 'DESC');
+        return $this->hasMany(Post::class)->orderBy('created_at', 'DESC');
     }
 
     public function following()

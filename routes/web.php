@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\FollowsController;
+use App\Mail\NewUserWelcomeMail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ProfilesController;
-
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,21 +18,18 @@ use App\Http\Controllers\ProfilesController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-/*Route::get('/p/create', [PostsController::class, 'create']);
-Route::post('/p', [PostsController::class, 'store']);*/
-Route::post('follow/{user}',[FollowsController::class,'store']);
+Route::get('/email', function () {
+    return new NewUserWelcomeMail();
+});
 
+Route::post('follow/{user}', [FollowsController::class, 'store']);
 
-Route::get('/p/create',[PostsController::class, 'create']);
-Route::post('/p',[PostsController::class, 'store']);
-Route::get('/p/{post}',[PostsController::class, 'show']);
-
+Route::get('/', [PostsController::class, 'index']);
+Route::get('/p/create', [PostsController::class, 'create']);
+Route::post('/p', [PostsController::class, 'store']);
+Route::get('/p/{post}', [PostsController::class, 'show']);
 
 
 Route::get('/profiles/{user}', [ProfilesController::class, 'index'])->name('profiles.index');
